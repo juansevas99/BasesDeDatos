@@ -4,6 +4,9 @@
 -- ------------------------------------------------------
 -- Server version	8.0.19
 
+CREATE DATABASE if not exists inventario_3_1;
+use inventario_3_1;
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -14,6 +17,33 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+
+--
+-- Table structure for table `medida`
+--
+
+DROP TABLE IF EXISTS `medida`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `medida` (
+  `id_medida` int NOT NULL AUTO_INCREMENT,
+  `nombre_medida` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_medida`),
+  UNIQUE KEY `nombre_medida` (`nombre_medida`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `medida`
+--
+
+LOCK TABLES `medida` WRITE;
+/*!40000 ALTER TABLE `medida` DISABLE KEYS */;
+INSERT INTO `medida` VALUES (5,'CM'),(1,'GB'),(3,'KG'),(2,'MB'),(6,'MT'),(7,'PG'),(4,'PIXELES');
+/*!40000 ALTER TABLE `medida` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `atributo`
@@ -97,38 +127,6 @@ INSERT INTO `categoria_has_atributo` VALUES (1,7),(3,7),(5,7),(9,7),(1,8),(3,8),
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_entradas`
---
-
-DROP TABLE IF EXISTS `detalle_entradas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_entradas` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `fecha_creacion` datetime NOT NULL,
-  `cantidad` int NOT NULL,
-  `observaciones` varchar(250) DEFAULT NULL,
-  `id_orden_compra` int NOT NULL,
-  `tipos_entrada_id_tipos_entrada` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_detalle_entradas_OrdenCompra1_idx` (`id_orden_compra`),
-  KEY `fk_detalle_entradas_tipos_entrada1_idx` (`tipos_entrada_id_tipos_entrada`),
-  CONSTRAINT `fk_detalle_entradas_OrdenCompra1` FOREIGN KEY (`id_orden_compra`) REFERENCES `ordencompra` (`id_oden_compra`),
-  CONSTRAINT `fk_detalle_entradas_tipos_entrada1` FOREIGN KEY (`tipos_entrada_id_tipos_entrada`) REFERENCES `tipos_entrada` (`id_tipos_entrada`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `detalle_entradas`
---
-
-LOCK TABLES `detalle_entradas` WRITE;
-/*!40000 ALTER TABLE `detalle_entradas` DISABLE KEYS */;
-INSERT INTO `detalle_entradas` VALUES (7,'2021-10-30 00:00:00',43,'Se aprueba Orden compra, llega producto y se crea entrada',12,1),(8,'2021-11-30 00:00:00',3,'Se crea una devolucion de venta por mal calidad del producto ya que no estaba bien empacado',12,2),(9,'2021-11-30 00:00:00',1,'Se crea una devolucion de venta por mal calidad del producto ya que nocumplia conlas expectativas del cliente',12,2),(10,'2021-11-30 00:00:00',45,'Se aprueba Orden compra, llega producto y se crea entrada',13,1),(11,'2021-11-30 00:00:00',2,'Se devuelve producto por queja del cliente, no especifica',13,2),(12,'2021-11-30 00:00:00',35,'Se aprueba Orden compra, llega producto y se crea entrada',14,1),(13,'2021-12-30 00:00:00',54,'Se aprueba Orden compra, llega producto y se crea entrada',15,1),(14,'2021-12-31 00:00:00',43,'Se aprueba Orden compra, llega producto y se crea entrada',16,1),(15,'2021-12-31 00:00:00',4,'Se aprueba Orden compra, llega producto y se crea entrada',27,1),(16,'2022-01-01 00:00:00',5,'Se aprueba Orden compra, llega producto y se crea entrada',28,1),(17,'2022-01-01 00:00:00',5,'Se aprueba Orden compra, llega producto y se crea entrada',29,1),(18,'2022-01-01 00:00:00',5,'Se aprueba Orden compra, llega producto y se crea entrada',30,1),(19,'2022-01-01 00:00:00',83,'Se aprueba Orden compra, llega producto y se crea entrada',31,1),(20,'2022-02-01 00:00:00',50,'Se queja cliente, se devuelve venta',15,2),(21,'2022-01-02 00:00:00',40,'Se queja cliente, se devuelve venta',16,2);
-/*!40000 ALTER TABLE `detalle_entradas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `estado`
 --
 
@@ -178,70 +176,7 @@ INSERT INTO `marca` VALUES (4,'ASER'),(1,'ASUS'),(2,'CLARO'),(6,'EPSON'),(7,'HP'
 /*!40000 ALTER TABLE `marca` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `medida`
---
 
-DROP TABLE IF EXISTS `medida`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `medida` (
-  `id_medida` int NOT NULL AUTO_INCREMENT,
-  `nombre_medida` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_medida`),
-  UNIQUE KEY `nombre_medida` (`nombre_medida`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `medida`
---
-
-LOCK TABLES `medida` WRITE;
-/*!40000 ALTER TABLE `medida` DISABLE KEYS */;
-INSERT INTO `medida` VALUES (5,'CM'),(1,'GB'),(3,'KG'),(2,'MB'),(6,'MT'),(7,'PG'),(4,'PIXELES');
-/*!40000 ALTER TABLE `medida` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ordencompra`
---
-
-DROP TABLE IF EXISTS `ordencompra`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ordencompra` (
-  `id_oden_compra` int NOT NULL AUTO_INCREMENT,
-  `referencia_entradas` varchar(45) NOT NULL,
-  `lote_entradas` varchar(45) NOT NULL,
-  `cantidad` int NOT NULL,
-  `precioUnitario` decimal(10,2) NOT NULL,
-  `fecha_creacion_entrada` datetime NOT NULL,
-  `producto_id_producto` int NOT NULL,
-  `proveedor_id_proveedor` int NOT NULL,
-  PRIMARY KEY (`id_oden_compra`),
-  UNIQUE KEY `referencia_entradas_UNIQUE` (`referencia_entradas`),
-  UNIQUE KEY `lote_entradas_UNIQUE` (`lote_entradas`),
-  KEY `fk_entradas_producto1_idx` (`producto_id_producto`),
-  KEY `fk_entradas_proveedor1_idx` (`proveedor_id_proveedor`),
-  CONSTRAINT `fk_entradas_producto1` FOREIGN KEY (`producto_id_producto`) REFERENCES `producto` (`id_producto`),
-  CONSTRAINT `fk_entradas_proveedor1` FOREIGN KEY (`proveedor_id_proveedor`) REFERENCES `proveedor` (`id_proveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ordencompra`
---
-
-LOCK TABLES `ordencompra` WRITE;
-/*!40000 ALTER TABLE `ordencompra` DISABLE KEYS */;
-INSERT INTO `ordencompra` VALUES (12,'3436567657_1','201235',43,1000.00,'2020-05-02 00:00:00',1,1),(13,'3436567234_2','201237',45,5220.00,'2020-12-05 00:00:00',1,2),(14,'3436786577_5','201254',35,200.00,'2020-05-03 00:00:00',6,3),(15,'5326356657_7','3425345',54,8451.00,'2020-05-04 00:00:00',6,2),(16,'4436567657_1','3464766',43,784000.00,'2020-12-06 00:00:00',6,1),(27,'315875445_4','3023566',4,400000.00,'2021-05-02 00:00:00',3,3),(28,'3436567237_2','208237',5,12250.00,'2021-12-05 00:00:00',3,1),(29,'315151814_8','81518',5,1200.00,'2021-05-03 00:00:00',4,1),(30,'3187951814_9','991212',5,96000.00,'2021-05-04 00:00:00',6,1),(31,'915515154_8','123456',83,784000.00,'2021-12-06 00:00:00',2,2);
-/*!40000 ALTER TABLE `ordencompra` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `producto`
---
 
 DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -308,6 +243,106 @@ INSERT INTO `proveedor` VALUES (1,'CLARO','proveeCel@claro.com.co','9451851245',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ordencompra`
+--
+
+DROP TABLE IF EXISTS `ordencompra`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ordencompra` (
+  `id_oden_compra` int NOT NULL AUTO_INCREMENT,
+  `referencia_entradas` varchar(45) NOT NULL,
+  `lote_entradas` varchar(45) NOT NULL,
+  `cantidad` int NOT NULL,
+  `precioUnitario` decimal(10,2) NOT NULL,
+  `fecha_creacion_entrada` datetime NOT NULL,
+  `producto_id_producto` int NOT NULL,
+  `proveedor_id_proveedor` int NOT NULL,
+  PRIMARY KEY (`id_oden_compra`),
+  UNIQUE KEY `referencia_entradas_UNIQUE` (`referencia_entradas`),
+  UNIQUE KEY `lote_entradas_UNIQUE` (`lote_entradas`),
+  KEY `fk_entradas_producto1_idx` (`producto_id_producto`),
+  KEY `fk_entradas_proveedor1_idx` (`proveedor_id_proveedor`),
+  CONSTRAINT `fk_entradas_producto1` FOREIGN KEY (`producto_id_producto`) REFERENCES `producto` (`id_producto`),
+  CONSTRAINT `fk_entradas_proveedor1` FOREIGN KEY (`proveedor_id_proveedor`) REFERENCES `proveedor` (`id_proveedor`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ordencompra`
+--
+
+LOCK TABLES `ordencompra` WRITE;
+/*!40000 ALTER TABLE `ordencompra` DISABLE KEYS */;
+INSERT INTO `ordencompra` VALUES (12,'3436567657_1','201235',43,1000.00,'2020-05-02 00:00:00',1,1),(13,'3436567234_2','201237',45,5220.00,'2020-12-05 00:00:00',1,2),(14,'3436786577_5','201254',35,200.00,'2020-05-03 00:00:00',6,3),(15,'5326356657_7','3425345',54,8451.00,'2020-05-04 00:00:00',6,2),(16,'4436567657_1','3464766',43,784000.00,'2020-12-06 00:00:00',6,1),(27,'315875445_4','3023566',4,400000.00,'2021-05-02 00:00:00',3,3),(28,'3436567237_2','208237',5,12250.00,'2021-12-05 00:00:00',3,1),(29,'315151814_8','81518',5,1200.00,'2021-05-03 00:00:00',4,1),(30,'3187951814_9','991212',5,96000.00,'2021-05-04 00:00:00',6,1),(31,'915515154_8','123456',83,784000.00,'2021-12-06 00:00:00',2,2);
+/*!40000 ALTER TABLE `ordencompra` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+
+-- Table structure for table `tipos_entrada`
+--
+
+DROP TABLE IF EXISTS `tipos_entrada`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tipos_entrada` (
+  `id_tipos_entrada` int NOT NULL,
+  `nomnre_tipos_entrada` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_tipos_entrada`),
+  UNIQUE KEY `nomnre_tipos_entrada_UNIQUE` (`nomnre_tipos_entrada`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipos_entrada`
+--
+
+LOCK TABLES `tipos_entrada` WRITE;
+/*!40000 ALTER TABLE `tipos_entrada` DISABLE KEYS */;
+INSERT INTO `tipos_entrada` VALUES (3,'Devolucion almacen'),(2,'Devolucion de venta'),(1,'Orden Compra'),(4,'Orden de compra a credito');
+/*!40000 ALTER TABLE `tipos_entrada` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+
+-- Table structure for table `detalle_entradas`
+--
+
+DROP TABLE IF EXISTS `detalle_entradas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `detalle_entradas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fecha_creacion` datetime NOT NULL,
+  `cantidad` int NOT NULL,
+  `observaciones` varchar(250) DEFAULT NULL,
+  `id_orden_compra` int NOT NULL,
+  `tipos_entrada_id_tipos_entrada` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_detalle_entradas_OrdenCompra1_idx` (`id_orden_compra`),
+  KEY `fk_detalle_entradas_tipos_entrada1_idx` (`tipos_entrada_id_tipos_entrada`),
+  CONSTRAINT `fk_detalle_entradas_OrdenCompra1` FOREIGN KEY (`id_orden_compra`) REFERENCES `ordencompra` (`id_oden_compra`),
+  CONSTRAINT `fk_detalle_entradas_tipos_entrada1` FOREIGN KEY (`tipos_entrada_id_tipos_entrada`) REFERENCES `tipos_entrada` (`id_tipos_entrada`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detalle_entradas`
+--
+
+LOCK TABLES `detalle_entradas` WRITE;
+/*!40000 ALTER TABLE `detalle_entradas` DISABLE KEYS */;
+INSERT INTO `detalle_entradas` VALUES (7,'2021-10-30 00:00:00',43,'Se aprueba Orden compra, llega producto y se crea entrada',12,1),(8,'2021-11-30 00:00:00',3,'Se crea una devolucion de venta por mal calidad del producto ya que no estaba bien empacado',12,2),(9,'2021-11-30 00:00:00',1,'Se crea una devolucion de venta por mal calidad del producto ya que nocumplia conlas expectativas del cliente',12,2),(10,'2021-11-30 00:00:00',45,'Se aprueba Orden compra, llega producto y se crea entrada',13,1),(11,'2021-11-30 00:00:00',2,'Se devuelve producto por queja del cliente, no especifica',13,2),(12,'2021-11-30 00:00:00',35,'Se aprueba Orden compra, llega producto y se crea entrada',14,1),(13,'2021-12-30 00:00:00',54,'Se aprueba Orden compra, llega producto y se crea entrada',15,1),(14,'2021-12-31 00:00:00',43,'Se aprueba Orden compra, llega producto y se crea entrada',16,1),(15,'2021-12-31 00:00:00',4,'Se aprueba Orden compra, llega producto y se crea entrada',27,1),(16,'2022-01-01 00:00:00',5,'Se aprueba Orden compra, llega producto y se crea entrada',28,1),(17,'2022-01-01 00:00:00',5,'Se aprueba Orden compra, llega producto y se crea entrada',29,1),(18,'2022-01-01 00:00:00',5,'Se aprueba Orden compra, llega producto y se crea entrada',30,1),(19,'2022-01-01 00:00:00',83,'Se aprueba Orden compra, llega producto y se crea entrada',31,1),(20,'2022-02-01 00:00:00',50,'Se queja cliente, se devuelve venta',15,2),(21,'2022-01-02 00:00:00',40,'Se queja cliente, se devuelve venta',16,2);
+/*!40000 ALTER TABLE `detalle_entradas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `producto`
+--
+
+
+--
 -- Table structure for table `rol`
 --
 
@@ -319,7 +354,7 @@ CREATE TABLE `rol` (
   `rol` varchar(45) NOT NULL,
   PRIMARY KEY (`id_rol`),
   UNIQUE KEY `rol_UNIQUE` (`rol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,6 +366,31 @@ LOCK TABLES `rol` WRITE;
 INSERT INTO `rol` VALUES (1,'Administrador');
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+-- Table structure for table `tipo_salida`
+--
+
+DROP TABLE IF EXISTS `tipo_salida`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tipo_salida` (
+  `id_tipo_salida` int NOT NULL AUTO_INCREMENT,
+  `nombre_tipo_salida` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_tipo_salida`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipo_salida`
+--
+
+LOCK TABLES `tipo_salida` WRITE;
+/*!40000 ALTER TABLE `tipo_salida` DISABLE KEYS */;
+INSERT INTO `tipo_salida` VALUES (1,'Venta'),(2,'TRanslado'),(3,'Devolucion de compra'),(4,'Devolucion de almacen'),(5,'Perdido'),(6,'Dañado'),(7,'Pasado');
+/*!40000 ALTER TABLE `tipo_salida` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 --
 -- Table structure for table `salidas`
@@ -366,55 +426,8 @@ INSERT INTO `salidas` VALUES (6,'234245345',1,'2020-12-31 00:00:00',1,12),(7,'34
 UNLOCK TABLES;
 
 --
--- Table structure for table `tipo_salida`
 --
 
-DROP TABLE IF EXISTS `tipo_salida`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tipo_salida` (
-  `id_tipo_salida` int NOT NULL AUTO_INCREMENT,
-  `nombre_tipo_salida` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_tipo_salida`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipo_salida`
---
-
-LOCK TABLES `tipo_salida` WRITE;
-/*!40000 ALTER TABLE `tipo_salida` DISABLE KEYS */;
-INSERT INTO `tipo_salida` VALUES (1,'Venta'),(2,'TRanslado'),(3,'Devolucion de compra'),(4,'Devolucion de almacen'),(5,'Perdido'),(6,'Dañado'),(7,'Pasado');
-/*!40000 ALTER TABLE `tipo_salida` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tipos_entrada`
---
-
-DROP TABLE IF EXISTS `tipos_entrada`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tipos_entrada` (
-  `id_tipos_entrada` int NOT NULL,
-  `nomnre_tipos_entrada` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_tipos_entrada`),
-  UNIQUE KEY `nomnre_tipos_entrada_UNIQUE` (`nomnre_tipos_entrada`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipos_entrada`
---
-
-LOCK TABLES `tipos_entrada` WRITE;
-/*!40000 ALTER TABLE `tipos_entrada` DISABLE KEYS */;
-INSERT INTO `tipos_entrada` VALUES (3,'Devolucion almacen'),(2,'Devolucion de venta'),(1,'Orden Compra'),(4,'Orden de compra a credito');
-/*!40000 ALTER TABLE `tipos_entrada` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `usuario`
 --
 
@@ -429,7 +442,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `usuario_UNIQUE` (`usuario`),
   UNIQUE KEY `correo_UNIQUE` (`correo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -457,7 +470,7 @@ CREATE TABLE `usuario_has_rol` (
   KEY `fk_usuario_has_rol_usuario1_idx` (`usuario_id_usuario`),
   CONSTRAINT `fk_usuario_has_rol_rol1` FOREIGN KEY (`rol_id_rol`) REFERENCES `rol` (`id_rol`),
   CONSTRAINT `fk_usuario_has_rol_usuario1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
